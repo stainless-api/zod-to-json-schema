@@ -85,6 +85,7 @@ export function parseDef(
     const seenSchema = get$ref(seenItem, refs);
 
     if (seenSchema !== undefined) {
+      addInternal(def, seenSchema);
       return seenSchema;
     }
   }
@@ -255,10 +256,20 @@ const addMeta = (
       jsonSchema.markdownDescription = def.description;
     }
   }
+
+  addInternal(def, jsonSchema)
+  return jsonSchema;
+};
+
+const addInternal = (
+  def: ZodTypeDef,
+  jsonSchema: JsonSchema7Type
+): JsonSchema7Type => {
   // @ts-expect-error
   if (def._internal) {
     // @ts-expect-error
     jsonSchema.internal = def._internal
   }
+
   return jsonSchema;
 };

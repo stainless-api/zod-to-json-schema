@@ -37,6 +37,7 @@ function parseDef(def, refs, forceResolution = false // Forces a new schema to b
     if (seenItem && !forceResolution) {
         const seenSchema = get$ref(seenItem, refs);
         if (seenSchema !== undefined) {
+            addInternal(def, seenSchema);
             return seenSchema;
         }
     }
@@ -169,6 +170,10 @@ const addMeta = (def, refs, jsonSchema) => {
             jsonSchema.markdownDescription = def.description;
         }
     }
+    addInternal(def, jsonSchema);
+    return jsonSchema;
+};
+const addInternal = (def, jsonSchema) => {
     // @ts-expect-error
     if (def._internal) {
         // @ts-expect-error
