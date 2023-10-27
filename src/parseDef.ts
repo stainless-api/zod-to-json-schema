@@ -255,5 +255,10 @@ const addMeta = (
       jsonSchema.markdownDescription = def.description;
     }
   }
+  // @ts-expect-error
+  if (def.internal) {
+    // @ts-expect-error
+    jsonSchema.internal = def.internal
+  }
   return jsonSchema;
 };
