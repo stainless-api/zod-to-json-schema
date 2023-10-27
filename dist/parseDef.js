@@ -170,9 +170,9 @@ const addMeta = (def, refs, jsonSchema) => {
         }
     }
     // @ts-expect-error
-    if (def.internal) {
+    if (def._internal) {
         // @ts-expect-error
-        jsonSchema.internal = def.internal;
+        jsonSchema.internal = def._internal;
     }
     return jsonSchema;
 };
